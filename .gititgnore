@@ -1,0 +1,25 @@
+#*
+*#
+#*#
+*~
+*.o
+*.out
+*.log
+*.a
+coding-style-reports.log
+
+# ---- lib/my/ ----
+./lib/*/*.a
+./lib/*/*~
+./lib/*/#*
+./lib/*/*#
+./lib/*/#*#
+./lib/*/*.o
+
+# ---- include/ ----
+.include/*.log
+.include/*~
+
+# ---- / ----
+.idea
+.idea/
