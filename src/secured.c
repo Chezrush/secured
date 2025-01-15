@@ -16,6 +16,9 @@ static char *get_bin_char(char c)
     char *bin = malloc(sizeof(char) * (SIZE_BINARY_LETTER + 1));
     int value = (int) c;
 
+    if (!bin) {
+        return NULL;
+    }
     for (int i = SIZE_BINARY_LETTER - 1; i >= 0; --i) {
         bin[i] = value % 2 + '0';
         value = value / 2;
@@ -26,10 +29,19 @@ static char *get_bin_char(char c)
 char *get_bin_str(char *str)
 {
     char *bin = malloc(sizeof(char) * (my_strlen(str) * 8 + my_strlen(str)));
+    char *bin_char;
 
+    if (!bin) {
+        return NULL;
+    }
     for (int i = 0; str[i]; ++i) {
-        my_strcat(bin, get_bin_char(str[i]));
+        bin_char = get_bin_char(str[i]);
+        if (!bin) {
+            return NULL;
+        }
+        my_strcat(bin, bin_char);
         my_strcat(bin, " ");
+        free(bin_char);
     }
     return bin;
 }
