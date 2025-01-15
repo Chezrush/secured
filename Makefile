@@ -17,6 +17,7 @@ SRC				=	$(addprefix src/, 					\
 					main.c								\
 					secured.c							\
 					$(HASH_PATH)hash.c					\
+					$(HASH_PATH)hash_key.c				\
 					)
 
 SRC_TU			=	$(addprefix src/, 					\
@@ -24,8 +25,8 @@ SRC_TU			=	$(addprefix src/, 					\
 					$(HASH_PATH)hash.c					\
 					)
 
-SRC_TEST		=	$(addprefix tests/,				\
-					test_secured.c					\
+SRC_TEST		=	$(addprefix tests/,					\
+					test_secured.c						\
 					)
 
 NAME    		=	libhashtable.a
@@ -76,13 +77,13 @@ coding-style:	fclean
 
 re:		fclean all
 
-re_dev: fclean dev
+redev: fclean dev
 
 debug: 		CFLAGS += -g3 -ggdb3
-debug: 		re_dev
+debug: 		redev
 
 asan: 		CC = clang -fsanitize=address
-asan: 		re_dev
+asan: 		redev
 
 unit_tests: 	lib_build
 		$(CC) $(CPPFLAGS) -o $(NAME_TEST) $(SRC_TEST) $(SRC_TU) $(LIB_PATH) \
