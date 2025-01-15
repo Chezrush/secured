@@ -8,6 +8,8 @@
 #ifndef SECURED_H
     #define SECURED_H
 
+    #define SIZE_BINARY_LETTER 8
+
 int secured(void);
 
 #endif /* SECURED_H */

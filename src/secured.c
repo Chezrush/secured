@@ -6,8 +6,33 @@
 */
 
 #include <stdio.h>
+#include <stdlib.h>
 #include "hashtable.h"
+#include "secured.h"
+#include "my.h"
 
+static char *get_bin_char(char c)
+{
+    char *bin = malloc(sizeof(char) * (SIZE_BINARY_LETTER + 1));
+    int value = (int) c;
+
+    for (int i = SIZE_BINARY_LETTER - 1; i >= 0; --i) {
+        bin[i] = value % 2 + '0';
+        value = value / 2;
+    }
+    return bin;
+}
+
+char *get_bin_str(char *str)
+{
+    char *bin = malloc(sizeof(char) * (my_strlen(str) * 8 + my_strlen(str)));
+
+    for (int i = 0; str[i]; ++i) {
+        my_strcat(bin, get_bin_char(str[i]));
+        my_strcat(bin, " ");
+    }
+    return bin;
+}
 
 int secured(void)
 {
