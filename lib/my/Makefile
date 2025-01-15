@@ -39,6 +39,7 @@ SRC		=	my_compute_power_rec.c			\
             my_swap.c						\
 			my_str_upper.c					\
 			my_strdup.c						\
+			my_atoi.c						\
 
 OBJ		=	$(SRC:.c=.o)
 
