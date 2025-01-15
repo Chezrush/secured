@@ -8,8 +8,23 @@
 #ifndef HASHTABLE_H
     #define HASHTABLE_H
 
+typedef struct hashtable_value_s {
+    int id;
+    char *key;
+    char *value;
+    struct hashtable_value_s *next;
+}hashtable_value_t;
+
+typedef struct hashtable_entry_s {
+    int id;
+    int num_item;
+    hashtable_value_t **list;
+}hashtable_entry_t;
+
 typedef struct hashtable_s {
-    // Your code here
+    int len;
+    int (*hash)(char *, int);
+    hashtable_entry_t **list;
 } hashtable_t;
 
 // Hash function
