@@ -1,0 +1,85 @@
+name: Secured
+run-name: ${{ github.actor }} start the clonning of Secured to epitech
+on:
+  push:
+    branches-ignore:
+      - "ga-ignore-*"
+  pull_request:
+    branches-ignore:
+      - "ga-ignore-*"
+
+env:
+  MIRROR_URL: "git@github.com:EpitechPGEPromo2029/B-CPE-110-PAR-1-1-secured-valentin.mine.git"
+  EXECUTABLES: "libhashtable.a"
+  CODING_STYLE_ERRORS: "coding-style-reports.log"
+
+jobs:
+  check_coding_style:
+    name: "Check if the repo is clear with the coding-style-checker"
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/epitech/coding-style-checker:latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: start coding-style-checker script
+        run: /usr/local/bin/check.sh $(pwd) $(pwd)
+      - name: check the file and formating
+        run: |
+          while SEP=":" read -r file line type code; do
+          echo "::error file=${file}, line=${line}, title=${type} coding style error::${code}"
+          done < $CODING_STYLE_ERRORS
+          if [ -s $CODING_STYLE_ERRORS ]; then
+            exit 1
+          fi
+  check_program_compilation:
+    needs: [check_coding_style]
+    name: "👨🏻‍🔧 Check if the program compile"
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: make & clean
+        run: make && make clean
+        timeout-minutes: 2
+      - name: check executable
+        run: |
+          echo ${{ env.EXECUTABLES }};
+          while read; do
+            if [! -x {read} ]; then
+              exit 1
+            fi
+          done
+  run_tests:
+    needs: [check_coding_style, check_program_compilation]
+    name: "⚙️ Check if the test pass"
+    runs-on: ubuntu-latest
+    container:
+      image: epitechcontent/epitest-docker:latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: |
+          make unit_tests
+          if [[ $? -ne 0 ]]; then
+            echo "::error file=Makefile,title=Makefile error::Tests failed"
+            exit 1
+          fi
+        timeout-minutes: 2
+
+  push_to_mirror:
+    needs: [check_coding_style, check_program_compilation, run_tests]
+    if: ${{ github.event_name == 'push' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Mirroring repository push
+        uses: pixta-dev/repository-mirroring-action@v1
+        with:
+          target_repo_url: ${{ env.MIRROR_URL }}
+          ssh_private_key: ${{ secrets.GIT_SSH_PRIVATE_KEY }}
