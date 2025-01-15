@@ -5,38 +5,46 @@
 ## Makefile
 ##
 
-CC		?=	gcc
+CC				?=	gcc
 
-SRC		=		$(addprefix src/, 					\
-				main.c								\
-				secured.c							\
-				)
+HASH_PATH		=	hash/
 
-SRC_TU	=		$(addprefix src/, 					\
-				secured.c							\
-				)
+MANAGER_PATH	=	manager/
 
-SRC_TEST	=	$(addprefix tests/,				\
-				test_secured.c					\
-				)
+DUMP_PATH		=	dump/
 
-NAME    	=	libhashtable.a
+SRC				=	$(addprefix src/, 					\
+					main.c								\
+					secured.c							\
+					$(HASH_PATH)hash.c					\
+					)
 
-NAME_DEV	=	secured
+SRC_TU			=	$(addprefix src/, 					\
+					secured.c							\
+					$(HASH_PATH)hash.c					\
+					)
 
-NAME_TEST   =	unit_tests
+SRC_TEST		=	$(addprefix tests/,				\
+					test_secured.c					\
+					)
 
-LIB_PATH	=	-L./lib/my -lmy
+NAME    		=	libhashtable.a
 
-CFLAGS  	=	-Wall -Wextra
+NAME_DEV		=	secured
 
-CPPFLAGS	=	-iquote./include/
+NAME_TEST   	=	unit_tests
 
-OBJ			=	$(SRC:.c=.o)
+LIB_PATH		=	-L./lib/my -lmy
 
-OBJ_LIB		= 	$(SRC_LIB:.c=.o)
+CFLAGS  		=	-Wall -Wextra
 
-UT_OBJ		=	*.gcno *.gcda
+CPPFLAGS		=	-iquote./include/
+
+OBJ				=	$(SRC:.c=.o)
+
+OBJ_LIB			= 	$(SRC_LIB:.c=.o)
+
+UT_OBJ			=	*.gcno *.gcda
 
 all:		$(NAME)
 
