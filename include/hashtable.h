@@ -13,13 +13,13 @@ typedef struct hashtable_value_s {
     char *key;
     char *value;
     struct hashtable_value_s *next;
-}hashtable_value_t;
+} hashtable_value_t;
 
 typedef struct hashtable_entry_s {
     int id;
     int num_item;
     hashtable_value_t **list;
-}hashtable_entry_t;
+} hashtable_entry_t;
 
 typedef struct hashtable_s {
     int len;

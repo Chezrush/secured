@@ -7,6 +7,5 @@
 
 int hash(char *key, int len)
 {
-
     return 0;
 }
