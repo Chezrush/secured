@@ -102,6 +102,14 @@ int delete_in_list(hashtable_value_t **begin, char *key)
     return SUCCESS;
 }
 
+int create_list(hashtable_value_t **list, char *key, char *value, int id)
+{
+    (*list)->key = strdup(key);
+    (*list)->value = strdup(value);
+    (*list)->id = id;
+    return SUCCESS;
+}
+
 int push_to_list(hashtable_value_t **begin, char *key, char *value, int id)
 {
     hashtable_value_t *next = malloc(sizeof(hashtable_value_t));

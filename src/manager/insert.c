@@ -10,6 +10,14 @@
 
 int ht_insert(hashtable_t *ht, char *key, char *value)
 {
-    push_to_list(&ht, key, value, hash(key, ht->len));
+    int ind_ht = ht->hash(key, ht->len);
+    hashtable_entry_t **entry = &(ht->list[ind_ht]);
+
+    if ((*entry)->num_item == 0) {
+        create_list((*entry)->list, key, value, (*entry)->num_item);
+    } else {
+        push_to_list((*entry)->list, key, value, (*entry)->num_item);
+    }
+    (*entry)->num_item += 1;
     return SUCCESS;
 }

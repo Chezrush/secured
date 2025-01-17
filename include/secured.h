@@ -17,5 +17,6 @@ int display_list(hashtable_value_t *begin);
 int free_list(hashtable_value_t *list);
 int delete_in_list(hashtable_value_t **begin, char *key);
 int push_to_list(hashtable_value_t **begin, char *key, char *value, int id);
+int create_list(hashtable_value_t **list, char *key, char *value, int id);
 
 #endif /* SECURED_H */

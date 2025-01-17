@@ -21,7 +21,7 @@ typedef struct hashtable_value_s {
 typedef struct hashtable_entry_s {
     int id;
     int num_item;
-    hashtable_value_t **list;
+    hashtable_value_t *list;
 } hashtable_entry_t;
 
 typedef struct hashtable_s {

@@ -46,12 +46,54 @@ char *get_bin_str(char *str)
     return bin;
 }
 
+static int create_entry(hashtable_t *ht, int id)
+{
+    hashtable_entry_t *entry = malloc(sizeof(hashtable_entry_t));
+
+    if (!entry) {
+        return FAIL;
+    }
+    entry->id = id;
+    entry->num_item = 0;
+    entry->list = malloc(sizeof(hashtable_value_t));
+    if (!entry->list) {
+        return FAIL;
+    }
+    return SUCCESS;
+}
+
+hashtable_t *new_hashtable(int (*hash)(char *, int), int len)
+{
+    hashtable_t *ht = malloc(sizeof(hashtable_t));
+
+    if (!ht) {
+        return NULL;
+    }
+    ht->hash = hash;
+    ht->len = len;
+    ht->list = malloc(sizeof(hashtable_entry_t *) * len + 1);
+    if (!ht->list) {
+        return NULL;
+    }
+    for (int i = 0; i < len; ++i) {
+        if (create_entry(ht, i) == FAIL) {
+            return NULL;
+        }
+    }
+    ht->list[len] = NULL;
+    return ht;
+}
+
 int secured(void)
 {
     int size = 99;
-    
+    hashtable_t *ht = new_hashtable(hash("coucou chloé", size), size);
+
+    if (!ht) {
+        return FAIL;
+    }
     //printf("Perception: %d:%d\n", hash("Perception", size), hash("Perception", size) % size);
     //printf("Fight: %d:%d\n", hash("Fight", size), hash("Fight", size) % size);
     //printf("Pathfinding: %d:%d\n", hash("Pathfinding", size), hash("Pathfinding", size)% size);
-    return 0;
+    return SUCCESS;
 }
