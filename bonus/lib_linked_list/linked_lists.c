@@ -5,10 +5,10 @@
 ** linked lists
 */
 
-#include "hashtable.h"
+#include "secured.h"
 #include <stdlib.h>
 
-void free_node(hashtable_value_t *list)
+static void free_node(hashtable_value_t *list)
 {
     free(list->key);
     free(list->value);
@@ -95,9 +95,29 @@ int delete_in_list(hashtable_value_t **begin, char *key)
         }
     }
     if ((*begin)->next != NULL) {
-        if (delete_next(begin, ref) == FAIL) {
+        if (delete_next(begin, key) == FAIL) {
             return FAIL;
         }
     }
+    return SUCCESS;
+}
+
+int push_to_list(hashtable_value_t **begin, char *key, char *value, int id)
+{
+    hashtable_value_t *next = malloc(sizeof(hashtable_value_t));
+
+    if (!next) {
+        return FAIL;
+    }
+    next->id = (*begin)->id;
+    next->key = my_strdup((*begin)->key);
+    next->value = my_strdup((*begin)->value);
+    free((*begin)->key);
+    free((*begin)->value);
+    next->next = (*begin)->next;
+    (*begin)->next = next;
+    (*begin)->id = id;
+    (*begin)->key = my_strdup(key);
+    (*begin)->value = my_strdup(value);
     return SUCCESS;
 }

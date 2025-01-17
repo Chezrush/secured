@@ -8,6 +8,9 @@
 #ifndef HASHTABLE_H
     #define HASHTABLE_H
 
+    #define FAIL 84
+    #define SUCCESS 0
+
 typedef struct hashtable_value_s {
     int id;
     char *key;

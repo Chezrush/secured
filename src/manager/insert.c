@@ -4,3 +4,12 @@
 ** File description:
 ** insert
 */
+
+#include "hashtable.h"
+#include "secured.h"
+
+int ht_insert(hashtable_t *ht, char *key, char *value)
+{
+    push_to_list(&ht, key, value, hash(key, ht->len));
+    return SUCCESS;
+}
