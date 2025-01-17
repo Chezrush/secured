@@ -48,11 +48,10 @@ char *get_bin_str(char *str)
 
 int secured(void)
 {
-    int size = 5;
-
-    printf("Vision: %d\n", hash("Vision", size));
-    printf("Perception: %d\n", hash("Perception", size));
-    printf("Fight: %d\n", hash("Fight", size));
-    printf("Pathfinding: %d\n", hash("Pathfinding", size));
+    int size = 99;
+    
+    //printf("Perception: %d:%d\n", hash("Perception", size), hash("Perception", size) % size);
+    //printf("Fight: %d:%d\n", hash("Fight", size), hash("Fight", size) % size);
+    //printf("Pathfinding: %d:%d\n", hash("Pathfinding", size), hash("Pathfinding", size)% size);
     return 0;
 }
