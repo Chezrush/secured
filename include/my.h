@@ -49,5 +49,6 @@ char *my_strncat(char *dest, char const *src, int nb);
 char **my_str_to_word_array(char const *str, char const sep);
 char *my_str_upper(char *str);
 char *my_strdup(char const *src);
+int my_atoi(char const *str);
 
 #endif /* MY_H_ */
