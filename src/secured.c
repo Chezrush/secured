@@ -92,8 +92,5 @@ int secured(void)
     if (!ht) {
         return FAIL;
     }
-    //printf("Perception: %d:%d\n", hash("Perception", size), hash("Perception", size) % size);
-    //printf("Fight: %d:%d\n", hash("Fight", size), hash("Fight", size) % size);
-    //printf("Pathfinding: %d:%d\n", hash("Pathfinding", size), hash("Pathfinding", size)% size);
     return SUCCESS;
 }

@@ -20,7 +20,6 @@ int hash(char *key, int len)
         final_hash <<= key[i] % my_strlen(key);
         if (final_hash < 0)
             final_hash *= (-1);
-        /*final_hash >>= my_strlen(pass_key) % my_strlen(key)*/;
     }
     return final_hash;
 }
