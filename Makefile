@@ -13,22 +13,38 @@ MANAGER_PATH	=	manager/
 
 DUMP_PATH		=	dump/
 
+LIB_LINKED_LIST =	lib_linked_list/
+
 SRC				=	$(addprefix src/, 					\
 					main.c								\
 					secured.c							\
 					$(HASH_PATH)hash.c					\
-					$(HASH_PATH)hash_key.c				\
+					$(HASH_PATH)init_sha_hash.c			\
+					$(HASH_PATH)update_sha_hash.c		\
+					$(HASH_PATH)transform_sha_hash.c	\
+					$(HASH_PATH)get_id_table.c			\
+					$(HASH_PATH)final_sha_hash.c		\
 					$(MANAGER_PATH)delete.c				\
 					$(MANAGER_PATH)insert.c				\
 					$(MANAGER_PATH)search.c 			\
 					$(DUMP_PATH)dump.c					\
+					$(LIB_LINKED_LIST)linked_lists.c	\
 					create_hashtable.c 					\
-					lib_linked_list/linked_lists.c		\
 					)
 
 SRC_TU			=	$(addprefix src/, 					\
-					secured.c							\
 					$(HASH_PATH)hash.c					\
+					$(HASH_PATH)init_sha_hash.c			\
+					$(HASH_PATH)update_sha_hash.c		\
+					$(HASH_PATH)transform_sha_hash.c	\
+					$(HASH_PATH)get_id_table.c			\
+					$(HASH_PATH)final_sha_hash.c		\
+					$(MANAGER_PATH)delete.c				\
+					$(MANAGER_PATH)insert.c				\
+					$(MANAGER_PATH)search.c 			\
+					$(DUMP_PATH)dump.c					\
+					$(LIB_LINKED_LIST)linked_lists.c	\
+					create_hashtable.c 					\
 					)
 
 SRC_TEST		=	$(addprefix tests/,					\
@@ -43,7 +59,7 @@ NAME_TEST   	=	unit_tests
 
 LIB_PATH		=	-L./lib/my -lmy
 
-CFLAGS  		=	-Wall -Wextra -Werror
+CFLAGS  		=	-Wall -Wextra
 
 CPPFLAGS		=	-iquote./include/
 
@@ -63,7 +79,7 @@ $(NAME):	$(OBJ) $(OBJ_LIB)
 
 dev:		$(OBJ)
 		make -C ./lib/my
-		$(CC) $(OBJ) $(LIB_PATH) -o $(NAME_DEV)
+		$(CC) $(OBJ) $(LIB_PATH) -o $(NAME_DEV) $(LDFLAGS)
 
 clean:
 		$(RM) $(OBJ)
@@ -88,7 +104,8 @@ redev: fclean dev
 debug: 		CFLAGS += -g3 -ggdb3
 debug: 		redev
 
-asan: 		CC = clang -fsanitize=address
+asan: 		CFLAGS += -fsanitize=address -g3 -ggdb3
+asan:		LDFLAGS += -fsanitize=address
 asan: 		redev
 
 unit_tests: 	lib_build
