@@ -59,33 +59,36 @@ static int remove_first_node(hashtable_value_t *begin)
             return FAIL;
         }
     } else {
-        tmp = begin;
+        tmp = malloc(sizeof(hashtable_value_t));
         begin->hash_key = begin->next->hash_key;
         begin->value = my_strdup(begin->next->value);
         begin->id = begin->next->id;
+        tmp->next = begin->next;
         begin->next = begin->next->next;
-        free_node(tmp);
+        free_node(tmp->next);
+        free(tmp);
     }
     return SUCCESS;
 }
 
-static void remove_next_node(hashtable_value_t *node)
+static void remove_last_node(hashtable_value_t *node)
+{
+    free_node(node->next);
+    node->next = NULL;
+}
+
+static void remove_node(hashtable_value_t *node)
 {
     hashtable_value_t *tmp;
 
-    if (node->next->next == NULL) {
-        free_node(node->next);
-        node->next = NULL;
-    } else {
-        tmp = malloc(sizeof(hashtable_value_t));
-        tmp->next = node->next;
-        node->next->hash_key = node->next->next->hash_key;
-        node->next->id = node->next->next->id;
-        node->next->value = my_strdup(node->next->next->value);
-        node->next->next = node->next->next->next;
-        free_node(tmp->next);
-        free(tmp);
-    }
+    tmp = malloc(sizeof(hashtable_value_t));
+    node->hash_key = node->next->hash_key;
+    node->id = node->next->id;
+    node->value = my_strdup(node->next->value);
+    tmp->next = node->next;
+    node->next = node->next->next;
+    free_node(tmp->next);
+    free(tmp);
 }
 
 int delete_in_list(hashtable_value_t **begin, int hash_key)
@@ -96,8 +99,13 @@ int delete_in_list(hashtable_value_t **begin, int hash_key)
         }
     }
     if (begin != NULL) {
-        if ((*begin)->next != NULL && (*begin)->next->hash_key == hash_key) {
-            remove_next_node(*begin);
+        if ((*begin)->next != NULL && (*begin)->next->hash_key == hash_key
+        && (*begin)->next->next != NULL) {
+            remove_node((*begin)->next);
+        }
+        if ((*begin)->next != NULL && (*begin)->next->hash_key == hash_key
+        && (*begin)->next->next == NULL) {
+            remove_last_node(*begin);
         }
         if ((*begin)->next != NULL) {
             delete_in_list(&(*begin)->next, hash_key);
