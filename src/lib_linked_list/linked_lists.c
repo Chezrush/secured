@@ -48,27 +48,13 @@ int display_list(hashtable_value_t *begin)
     return SUCCESS;
 }
 
-static int remove_first_node(hashtable_value_t *begin)
+static void remove_first_node(hashtable_value_t **begin)
 {
     hashtable_value_t *tmp;
 
-    if (begin->next == NULL) {
-        free_node(begin);
-        begin = malloc(sizeof(hashtable_value_t));
-        if (!begin) {
-            return FAIL;
-        }
-    } else {
-        tmp = malloc(sizeof(hashtable_value_t));
-        begin->hash_key = begin->next->hash_key;
-        begin->value = my_strdup(begin->next->value);
-        begin->id = begin->next->id;
-        tmp->next = begin->next;
-        begin->next = begin->next->next;
-        free_node(tmp->next);
-        free(tmp);
-    }
-    return SUCCESS;
+    tmp = *begin;
+    (*begin) = (*begin)->next;
+    free_node(tmp);
 }
 
 static void remove_last_node(hashtable_value_t *node)
@@ -81,31 +67,25 @@ static void remove_node(hashtable_value_t *node)
 {
     hashtable_value_t *tmp;
 
-    tmp = malloc(sizeof(hashtable_value_t));
-    node->hash_key = node->next->hash_key;
-    node->id = node->next->id;
-    node->value = my_strdup(node->next->value);
-    tmp->next = node->next;
+    tmp = node->next;
     node->next = node->next->next;
-    free_node(tmp->next);
-    free(tmp);
+    free_node(tmp);
 }
 
 int delete_in_list(hashtable_value_t **begin, int hash_key)
 {
     if ((*begin)->hash_key == hash_key) {
-        if (remove_first_node(*begin) == FAIL) {
-            return FAIL;
-        }
+        remove_first_node(begin);
     }
-    if (begin != NULL) {
+    if ((*begin) != NULL) {
+        printf("%p\n", (*begin));
         if ((*begin)->next != NULL && (*begin)->next->hash_key == hash_key
         && (*begin)->next->next != NULL) {
-            remove_node((*begin)->next);
+            remove_node((*begin));
         }
         if ((*begin)->next != NULL && (*begin)->next->hash_key == hash_key
         && (*begin)->next->next == NULL) {
-            remove_last_node(*begin);
+            remove_node(*begin);
         }
         if ((*begin)->next != NULL) {
             delete_in_list(&(*begin)->next, hash_key);
