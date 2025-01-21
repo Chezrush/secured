@@ -5,21 +5,20 @@
 ** hash
 */
 
-#include <stdio.h>
-
+#include <stdint.h>
 #include "my.h"
 #include "secured.h"
+#include "sha_256.h"
 
 int hash(char *key, int len)
 {
-    int final_hash = 0;
+    const char *message = key;
+    uint8_t hash[32];
+    SHA256_CTX_t ctx;
 
-    for (int i = 0; key[i]; ++i) {
-        final_hash += final_hash ^ (key[i] * (i + 1));
-        final_hash += len * my_strlen(key);
-        final_hash <<= key[i] % my_strlen(key);
-        if (final_hash < 0)
-            final_hash *= (-1);
-    }
-    return final_hash;
+    (void)len;
+    sha256_init(&ctx);
+    sha256_update(&ctx, (uint8_t *)message, my_strlen(message));
+    sha256_final(&ctx, hash);
+    return convert_chunk(hash);
 }
