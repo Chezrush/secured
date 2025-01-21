@@ -35,7 +35,7 @@ hashtable_t *new_hashtable(int (*hash)(char *, int), int len)
     }
     ht->hash = hash;
     ht->len = len;
-    ht->list = malloc(sizeof(hashtable_entry_t *) * len + 1);
+    ht->list = malloc(sizeof(hashtable_value_t) * (len + 1));
     if (!ht->list) {
         return NULL;
     }
