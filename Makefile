@@ -18,6 +18,10 @@ SRC				=	$(addprefix src/, 					\
 					secured.c							\
 					$(HASH_PATH)hash.c					\
 					$(HASH_PATH)hash_key.c				\
+					$(MANAGER_PATH)delete.c				\
+					$(MANAGER_PATH)insert.c				\
+					$(DUMP_PATH)dump.c					\
+					lib_linked_list/linked_lists.c		\
 					)
 
 SRC_TU			=	$(addprefix src/, 					\
@@ -37,7 +41,7 @@ NAME_TEST   	=	unit_tests
 
 LIB_PATH		=	-L./lib/my -lmy
 
-CFLAGS  		=	-Wall -Wextra
+CFLAGS  		=	-Wall -Wextra -Werror
 
 CPPFLAGS		=	-iquote./include/
 

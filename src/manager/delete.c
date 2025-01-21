@@ -4,3 +4,13 @@
 ** File description:
 ** delete
 */
+
+#include "hashtable.h"
+#include "secured.h"
+
+int ht_delete(hashtable_t *ht, char *key)
+{
+    ht = ht;
+    key = key;
+    return SUCCESS;
+}

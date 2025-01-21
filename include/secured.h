@@ -15,8 +15,8 @@
 int secured(void);
 int display_list(hashtable_value_t *begin);
 int free_list(hashtable_value_t *list);
-int delete_in_list(hashtable_value_t **begin, char *key);
-int push_to_list(hashtable_value_t **begin, char *key, char *value, int id);
-int create_list(hashtable_value_t **list, char *key, char *value, int id);
+int delete_in_list(hashtable_value_t **begin, int hash_key);
+int push_to_list(hashtable_value_t **begin, char *value, int id, int hash);
+int create_list(hashtable_value_t **list, char *value, int id, int hash);
 
 #endif /* SECURED_H */

@@ -59,6 +59,7 @@ static int create_entry(hashtable_t *ht, int id)
     if (!entry->list) {
         return FAIL;
     }
+    ht->list[id] = entry;
     return SUCCESS;
 }
 
@@ -86,11 +87,16 @@ hashtable_t *new_hashtable(int (*hash)(char *, int), int len)
 
 int secured(void)
 {
-    int size = 99;
-    hashtable_t *ht = new_hashtable(hash("coucou chloé", size), size);
+    int size = 100;
+    hashtable_t *ht = new_hashtable(hash, size);
 
     if (!ht) {
         return FAIL;
     }
+    ht_insert(ht, "Vision", "./Documents/Tournament/Modules/Vision");
+    ht_insert(ht, "Kratos", "./Trash/Hollidays_Pics/.secret_folder/kratos.ai");
+    ht_insert(ht, "<3", "+33 6 31 45 61 23 71");
+    ht_insert(ht, "</3", "+33 7 51 49 01 38 11");
+    ht_dump(ht);
     return SUCCESS;
 }
