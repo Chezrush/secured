@@ -5,6 +5,7 @@
 ** sha_256
 */
 
+
 #ifndef SHA_256_H
     #define SHA_256_H
     #define ROTR(x, n) ((x >> n) | (x << (32 - n)))
@@ -16,8 +17,23 @@
     #define SIGMA00(x) (ROTR(x, 7) ^ ROTR(x, 18) ^ SHR(x, 3))
     #define SIGMA11(x) (ROTR(x, 17) ^ ROTR(x, 19) ^ SHR(x, 10))
     #include <stdint.h>
+    #include <stddef.h>
 
-static const uint32_t K[64] = {
+typedef enum SHA_TRANS_s {
+    SHA_TRANS_A = 0,
+    SHA_TRANS_B,
+    SHA_TRANS_C,
+    SHA_TRANS_D,
+    SHA_TRANS_E,
+    SHA_TRANS_F,
+    SHA_TRANS_G,
+    SHA_TRANS_H,
+    SHA_TRANS_T1,
+    SHA_TRANS_T2,
+    SHA_TRANS_SIZE
+}SHA_TRANS_t;
+
+static const uint32_t SHA_K[64] = {
     0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5,
     0x3956c25b, 0x59f111f1, 0x923f82a4, 0xab1c5ed5,
     0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3,
@@ -42,5 +58,15 @@ typedef struct SHA256_CTX_s {
     uint64_t bitlen;
     uint32_t datalen;
 } SHA256_CTX_t;
+
+void sha256_final(SHA256_CTX_t *ctx, uint8_t hash[]);
+uint64_t convert_chunk(uint8_t *hash);
+void sha256_init(SHA256_CTX_t *ctx);
+void sha256_transform(SHA256_CTX_t *ctx, const uint8_t data[]);
+void sha256_transform_2(uint32_t W[64], const uint8_t *data,
+    uint32_t list[10], SHA256_CTX_t *ctx);
+void sha256_transform_3(uint32_t list[10], uint32_t W[64]);
+void sha256_update(SHA256_CTX_t *ctx, const uint8_t data[], size_t len);
+void sha256_final2(SHA256_CTX_t *ctx);
 
 #endif /* SHA_256_H */

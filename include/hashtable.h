@@ -10,6 +10,7 @@
 
     #define FAIL 84
     #define SUCCESS 0
+    #include <stdint.h>
 
 typedef struct hashtable_value_s {
     int id;
