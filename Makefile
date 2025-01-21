@@ -20,7 +20,9 @@ SRC				=	$(addprefix src/, 					\
 					$(HASH_PATH)hash_key.c				\
 					$(MANAGER_PATH)delete.c				\
 					$(MANAGER_PATH)insert.c				\
+					$(MANAGER_PATH)search.c 			\
 					$(DUMP_PATH)dump.c					\
+					create_hashtable.c 					\
 					lib_linked_list/linked_lists.c		\
 					)
 

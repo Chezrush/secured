@@ -8,7 +8,7 @@
 #include <stdio.h>
 
 #include "my.h"
-#include "../../include/secured.h"
+#include "secured.h"
 
 int hash(char *key, int len)
 {

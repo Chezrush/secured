@@ -5,9 +5,9 @@
 ** dump
 */
 
-#include "../../include/hashtable.h"
-#include "../../include/secured.h"
-#include "../../include/my.h"
+#include "hashtable.h"
+#include "secured.h"
+#include "my.h"
 
 static void display_entry(hashtable_entry_t *entry)
 {
@@ -22,7 +22,9 @@ void ht_dump(hashtable_t *ht)
         my_putchar('[');
         my_put_nbr(i);
         my_putstr("]:");
-        display_entry(ht->list[i]);
+        if (ht->list[i]->num_item != 0) {
+            display_entry(ht->list[i]);
+        }
         my_putchar('\n');
     }
 }

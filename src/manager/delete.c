@@ -10,7 +10,10 @@
 
 int ht_delete(hashtable_t *ht, char *key)
 {
-    ht = ht;
-    key = key;
+    int hash_key = ht->hash(key, ht->len);
+    hashtable_entry_t *entry = ht->list[hash_key % ht->len];
+
+    delete_in_list(&entry->list, hash_key);
+    --entry->num_item;
     return SUCCESS;
 }

@@ -5,9 +5,11 @@
 ** linked lists
 */
 
+#include <stdlib.h>
 #include "secured.h"
 #include "my.h"
-#include <stdlib.h>
+
+#include <stdio.h>
 
 static void free_node(hashtable_value_t *list)
 {
@@ -37,72 +39,68 @@ int display_list(hashtable_value_t *begin)
         my_putstr(" - ");
         my_putstr(begin->value);
     } else {
-        display_list(begin->next);
         my_putstr("\n> ");
         my_put_nbr(begin->hash_key);
         my_putstr(" - ");
         my_putstr(begin->value);
+        display_list(begin->next);
     }
     return SUCCESS;
 }
 
-static void remove_last_node(hashtable_value_t **list)
+static int remove_first_node(hashtable_value_t *begin)
 {
-    free((*list)->value);
-    (*list)->value = NULL;
-}
+    hashtable_value_t *tmp;
 
-static int remove_node(hashtable_value_t **list)
-{
-    hashtable_value_t *temp;
-
-    if ((*list)->next == NULL) {
-        remove_last_node(list);
+    if (begin->next == NULL) {
+        free_node(begin);
+        begin = malloc(sizeof(hashtable_value_t));
+        if (!begin) {
+            return FAIL;
+        }
     } else {
-        temp = malloc(sizeof(hashtable_value_t));
-        if (!temp) {
-            return FAIL;
-        }
-        (*list)->id = (*list)->next->id;
-        (*list)->value = my_strdup((*list)->next->value);
-        (*list)->hash_key = (*list)->next->hash_key;
-        temp->next = (*list)->next;
-        (*list)->next = (*list)->next->next;
-        free_node(temp->next);
-        free(temp);
+        tmp = begin;
+        begin->hash_key = begin->next->hash_key;
+        begin->value = my_strdup(begin->next->value);
+        begin->id = begin->next->id;
+        begin->next = begin->next->next;
+        free_node(tmp);
     }
     return SUCCESS;
 }
 
-static int delete_next(hashtable_value_t **begin, int hash_key)
+static void remove_next_node(hashtable_value_t *node)
 {
-    if ((*begin)->next->hash_key == hash_key && (*begin)->next->next != NULL) {
-        if (remove_node(&(*begin)->next) == FAIL) {
-            return FAIL;
-        }
+    hashtable_value_t *tmp;
+
+    if (node->next->next == NULL) {
+        free_node(node->next);
+        node->next = NULL;
+    } else {
+        tmp = malloc(sizeof(hashtable_value_t));
+        tmp->next = node->next;
+        node->next->hash_key = node->next->next->hash_key;
+        node->next->id = node->next->next->id;
+        node->next->value = my_strdup(node->next->next->value);
+        node->next->next = node->next->next->next;
+        free_node(tmp->next);
+        free(tmp);
     }
-    if (!(*begin)->next->next && (*begin)->next->hash_key == hash_key) {
-        if (remove_node(&(*begin)->next) == FAIL) {
-            return FAIL;
-        }
-        (*begin)->next = NULL;
-    }
-    if ((*begin)->next != NULL) {
-        delete_in_list(&(*begin)->next, hash_key);
-    }
-    return SUCCESS;
 }
 
 int delete_in_list(hashtable_value_t **begin, int hash_key)
 {
     if ((*begin)->hash_key == hash_key) {
-        if (remove_node(begin) == FAIL) {
+        if (remove_first_node(*begin) == FAIL) {
             return FAIL;
         }
     }
-    if ((*begin)->next != NULL) {
-        if (delete_next(begin, hash_key) == FAIL) {
-            return FAIL;
+    if (begin != NULL) {
+        if ((*begin)->next != NULL && (*begin)->next->hash_key == hash_key) {
+            remove_next_node(*begin);
+        }
+        if ((*begin)->next != NULL) {
+            delete_in_list(&(*begin)->next, hash_key);
         }
     }
     return SUCCESS;
@@ -113,6 +111,7 @@ int create_list(hashtable_value_t **list, char *value, int id, int hash)
     (*list)->value = my_strdup(value);
     (*list)->hash_key = hash;
     (*list)->id = id;
+    (*list)->next = NULL;
     return SUCCESS;
 }
 
