@@ -11,7 +11,8 @@
 int ht_insert(hashtable_t *ht, char *key, char *value)
 {
     int ind_ht = ht->hash(key, ht->len);
-    hashtable_entry_t **entry = &(ht->list[ind_ht % ht->len]);
+    int index = ((ind_ht % ht->len) + ht->len) % ht->len;
+    hashtable_entry_t **entry = &(ht->list[index]);
 
     if ((*entry)->num_item == 0) {
         create_list(&(*entry)->list, value, (*entry)->num_item, ind_ht);

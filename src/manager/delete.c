@@ -15,5 +15,11 @@ int ht_delete(hashtable_t *ht, char *key)
 
     delete_in_list(&entry->list, hash_key);
     --entry->num_item;
+    if (entry->num_item == 0) {
+        entry->list = malloc(sizeof(hashtable_value_t));
+    }
+    if (!entry->list) {
+        return FAIL;
+    }
     return SUCCESS;
 }
