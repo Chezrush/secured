@@ -14,7 +14,7 @@
 
 typedef struct hashtable_value_s {
     int id;
-    unsigned int hash_key;
+    int hash_key;
     char *value;
     struct hashtable_value_s *next;
 } hashtable_value_t;
@@ -32,7 +32,7 @@ typedef struct hashtable_s {
 } hashtable_t;
 
 // Hash function
-int hash(char *key, int len);
+uint64_t hash(char *key, int len);
 
 // Create & destro table
 hashtable_t *new_hashtable(int (*hash)(char *, int), int len);

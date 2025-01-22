@@ -8,6 +8,11 @@
 #include <stdio.h>
 #include "hashtable.h"
 
+void func(const hashtable_t *ht, int v, int bin)
+{
+    printf("V : %lu\nK : %lu\nV : %lu\n\n", hash("Vision", ht->len), hash("Kratos", ht->len), hash("Vision", ht->len));
+}
+
 int secured(void)
 {
     int size = 3;
@@ -16,7 +21,9 @@ int secured(void)
     if (!ht) {
         return FAIL;
     }
-    printf("V : %d\nK : %d\nV : %d\n", hash("Vision", ht->len), hash("Kratos", ht->len), hash("Vision", ht->len));
+    printf("V : %lu\nK : %lu\nV : %lu\n\n", hash("Vision", ht->len), hash("Kratos", ht->len), hash("Vision", ht->len));
+    printf("V : %lu\nK : %lu\nV : %lu\n\n", hash("Vision", ht->len), hash("Kratos", ht->len), hash("Vision", ht->len));
+    func(ht, "Vision", "./Documents/Tournament/Modules/Vision");
     ht_insert(ht, "Vision", "./Documents/Tournament/Modules/Vision");
     /*ht_insert(ht, "Kratos", "./Trash/Holidays_Pics/.secret_folder/kratos.ai");
     ht_insert(ht, "<3", "+33 6 31 45 61 23 71");
@@ -35,7 +42,7 @@ int secured(void)
     ht_insert(ht, "Vision", "./Documents/Tournament/Modules/Vision");
     ht_delete(ht, "Vision");
     ht_dump(ht);*/
-    printf("V : %d\nK : %d\nV : %d\n", hash("Vision", ht->len), hash("Kratos", ht->len), hash("Vision", ht->len));
+   // printf("V : %d\nK : %d\nV : %d\n", hash("Vision", ht->len), hash("Kratos", ht->len), hash("Vision", ht->len));
     delete_hashtable(ht);
     return SUCCESS;
 }

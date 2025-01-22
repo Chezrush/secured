@@ -10,7 +10,7 @@
 #include "secured.h"
 #include "sha_256.h"
 
-int hash(char *key, int len)
+uint64_t hash(char *key, int len)
 {
     const char *message = key;
     uint8_t hash[32];

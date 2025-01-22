@@ -5,6 +5,8 @@
 ** my_strlen.c
 */
 
+#include <stdio.h>
+
 int my_strlen(char const *str)
 {
     int i = 0;
