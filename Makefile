@@ -15,6 +15,45 @@ DUMP_PATH		=	dump/
 
 LIB_LINKED_LIST =	lib_linked_list/
 
+SRC_LIB			=	$(addprefix lib/my/, 				\
+					my_atoi.c							\
+					my_compute_power_rec.c				\
+					my_compute_square_root.c			\
+					my_find_prime_sup.c					\
+					my_getnbr.c							\
+					my.h								\
+					my_isneg.c							\
+					my_is_prime.c						\
+					my_putchar.c						\
+					my_put_nbr.c						\
+					my_putstr.c							\
+					my_revstr.c							\
+					my_showmem.c						\
+					my_showstr.c						\
+					my_sort_int_array.c					\
+					my_strcapitalize.c					\
+					my_strcat.c							\
+					my_strcmp.c							\
+					my_strcpy.c							\
+					my_strdup.c							\
+					my_str_isalpha.c					\
+					my_str_islower.c					\
+					my_str_isnum.c						\
+					my_str_isprintable.c				\
+					my_str_isupper.c					\
+					my_strlen.c							\
+					my_strlowcase.c						\
+					my_strncat.c						\
+					my_strncmp.c						\
+					my_strncpy.c						\
+					my_strstr.c							\
+					my_str_to_word_array.c				\
+					my_strupcase.c						\
+					my_str_upper.c						\
+					my_swap.c							\
+					)
+
+
 SRC				=	$(addprefix src/, 					\
 					main.c								\
 					secured.c							\
@@ -43,6 +82,7 @@ SRC_TU			=	$(addprefix src/, 					\
 					$(MANAGER_PATH)delete.c				\
 					$(MANAGER_PATH)insert.c				\
 					$(MANAGER_PATH)search.c 			\
+					$(MANAGER_PATH)delete_hashtable.c 	\
 					$(DUMP_PATH)dump.c					\
 					$(LIB_LINKED_LIST)linked_lists.c	\
 					create_hashtable.c 					\
@@ -60,11 +100,13 @@ NAME_TEST   	=	unit_tests
 
 LIB_PATH		=	-L./lib/my -lmy
 
-CFLAGS  		=	-Wall -Wextra
+CFLAGS  		=	-Wall -Wextra -Werror -std=gnu2x
 
 CPPFLAGS		=	-iquote./include/
 
 OBJ				=	$(SRC:.c=.o)
+
+OBJ_TU			=	$(SRC_TU:.c=.o)
 
 OBJ_LIB			= 	$(SRC_LIB:.c=.o)
 
@@ -75,8 +117,8 @@ all:		$(NAME)
 lib_build:
 		make -C ./lib/my
 
-$(NAME):	$(OBJ) $(OBJ_LIB)
-		$(AR) rc $(NAME) $(OBJ) $(OBJ_LIB)
+$(NAME):	$(OBJ_TU) $(OBJ_LIB)
+		$(AR) rc $(NAME) $(OBJ_TU) $(OBJ_LIB)
 
 dev:		$(OBJ)
 		make -C ./lib/my
@@ -100,12 +142,12 @@ coding-style:	fclean
 
 re:		fclean all
 
-redev: fclean dev
+redev: 	fclean dev
 
-debug: 		CFLAGS += -g3 -ggdb3
+debug: 		CFLAGS 	+= -g3 -ggdb3
 debug: 		redev
 
-asan: 		CFLAGS += -fsanitize=address -g3 -ggdb3
+asan: 		CFLAGS 	+= -fsanitize=address -g3 -ggdb3
 asan:		LDFLAGS += -fsanitize=address
 asan: 		redev
 
