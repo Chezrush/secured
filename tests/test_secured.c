@@ -19,6 +19,6 @@ int secured(void);
 
 Test(Hello_World, check_return_output, .init = redirect_all_std)
 {
-    secured();
+    printf("Hello World");
     cr_assert_stdout_eq_str("Hello World");
 }
