@@ -27,6 +27,7 @@ SRC				=	$(addprefix src/, 					\
 					$(MANAGER_PATH)delete.c				\
 					$(MANAGER_PATH)insert.c				\
 					$(MANAGER_PATH)search.c 			\
+					$(MANAGER_PATH)delete_hashtable.c 	\
 					$(DUMP_PATH)dump.c					\
 					$(LIB_LINKED_LIST)linked_lists.c	\
 					create_hashtable.c 					\
