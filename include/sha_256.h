@@ -60,7 +60,7 @@ typedef struct SHA256_CTX_s {
 } SHA256_CTX_t;
 
 void sha256_final(SHA256_CTX_t *ctx, uint8_t hash[]);
-uint64_t convert_chunk(uint8_t *hash);
+unsigned int convert_chunk(uint8_t *hash);
 void sha256_init(SHA256_CTX_t *ctx);
 void sha256_transform(SHA256_CTX_t *ctx, const uint8_t data[]);
 void sha256_transform_2(uint32_t W[64], const uint8_t *data,
