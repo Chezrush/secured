@@ -74,11 +74,12 @@ static void remove_node(hashtable_value_t *node)
 
 int delete_in_list(hashtable_value_t **begin, int hash_key)
 {
+    if (*begin == NULL)
+        return FAIL;
     if ((*begin)->hash_key == hash_key) {
         remove_first_node(begin);
     }
     if ((*begin) != NULL) {
-        printf("%p\n", (*begin));
         if ((*begin)->next != NULL && (*begin)->next->hash_key == hash_key
         && (*begin)->next->next != NULL) {
             remove_node((*begin));

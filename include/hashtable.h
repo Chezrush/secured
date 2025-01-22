@@ -14,7 +14,7 @@
 
 typedef struct hashtable_value_s {
     int id;
-    int hash_key;
+    unsigned int hash_key;
     char *value;
     struct hashtable_value_s *next;
 } hashtable_value_t;

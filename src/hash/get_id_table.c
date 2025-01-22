@@ -25,6 +25,5 @@ uint64_t convert_chunk(uint8_t *hash)
         my_memcpy(&res, &hash[i * sizeof(uint64_t)], sizeof(uint64_t));
         somme += res;
     }
-    printf("%lu\n", somme);
     return somme;
 }

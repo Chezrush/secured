@@ -21,17 +21,12 @@ int secured(void)
     ht_insert(ht, "<3", "+33 6 31 45 61 23 71");
     ht_insert(ht, "</3", "+33 7 51 49 01 38 11");
     ht_dump(ht);
-    printf("RUNNNNNNNNNNNN\n");
     ht_delete(ht, "Vision");
-    printf("HELLOOOOOOOOOOOOOOOOOOOOOO\n");
+    ht_dump(ht);
     ht_delete(ht, "<3");
-    printf("COUCOUUUUUUUUUUUUUUUUUUUUUU\n");
     ht_delete(ht, "Kratos");
-    printf("tuzrjyhdgvsbds\n");
     ht_insert(ht, "Vision", "./Documents/Tournament/Modules/Vision");
-    printf("b\n");
-    ht_delete(ht, "Vision");
-    printf("uqg\n");
+    /*ht_delete(ht, "Vision");*/
     ht_dump(ht);
     return SUCCESS;
 }
