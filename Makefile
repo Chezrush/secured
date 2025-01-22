@@ -21,7 +21,6 @@ SRC_LIB			=	$(addprefix lib/my/, 				\
 					my_compute_square_root.c			\
 					my_find_prime_sup.c					\
 					my_getnbr.c							\
-					my.h								\
 					my_isneg.c							\
 					my_is_prime.c						\
 					my_putchar.c						\
