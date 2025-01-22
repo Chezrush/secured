@@ -16,7 +16,7 @@ void *my_memcpy(void *dest, void *src, size_t size)
     return dest;
 }
 
-uint64_t convert_chunk(uint8_t *hash)
+unsigned int convert_chunk(uint8_t *hash)
 {
     uint64_t res = 0;
     uint64_t somme = 0;

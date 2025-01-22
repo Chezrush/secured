@@ -10,11 +10,11 @@
 #include "secured.h"
 #include "sha_256.h"
 
-uint64_t hash(char *key, int len)
+int hash(char *key, int len)
 {
     const char *message = key;
     uint8_t hash[32];
-    SHA256_CTX_t ctx;
+    SHA256_CTX_t ctx = {};
 
     (void)len;
     sha256_init(&ctx);
