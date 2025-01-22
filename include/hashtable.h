@@ -32,7 +32,7 @@ typedef struct hashtable_s {
 } hashtable_t;
 
 // Hash function
-uint64_t hash(char *key, int len);
+int hash(char *key, int len);
 
 // Create & destro table
 hashtable_t *new_hashtable(int (*hash)(char *, int), int len);
