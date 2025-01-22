@@ -55,7 +55,7 @@ SRC_LIB			=	$(addprefix lib/my/, 				\
 SRC				=	$(addprefix bonus/test_dev/,		\
 					main.c								\
                 	secured.c							\
-                	)
+                	)									\
 					$(addprefix src/, 					\
 					$(HASH_PATH)hash.c					\
 					$(HASH_PATH)init_sha_hash.c			\
