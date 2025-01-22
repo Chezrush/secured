@@ -22,7 +22,6 @@ void ht_dump(hashtable_t *ht)
         my_putchar('[');
         my_put_nbr(i);
         my_putstr("]:");
-        //printf("index entry : %d\nid : %d\nnum item : %d\n", i, ht->list[i]->id, ht->list[i]->num_item);
         if (ht->list[i]->num_item != 0) {
             display_entry(ht->list[i]);
         }
