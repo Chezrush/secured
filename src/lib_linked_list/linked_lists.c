@@ -57,12 +57,6 @@ static void remove_first_node(hashtable_value_t **begin)
     free_node(tmp);
 }
 
-static void remove_last_node(hashtable_value_t *node)
-{
-    free_node(node->next);
-    node->next = NULL;
-}
-
 static void remove_node(hashtable_value_t *node)
 {
     hashtable_value_t *tmp;
