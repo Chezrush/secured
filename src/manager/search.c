@@ -17,7 +17,7 @@ char *ht_search(hashtable_t *ht, char *key)
     hashtable_value_t *value = NULL;
 
     if (key[0] == '\0' || hash_key < 0) {
-        return FAIL;
+        return NULL;
     }
     entry = ht->list[index];
     value = entry->list;
