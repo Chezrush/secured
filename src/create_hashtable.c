@@ -30,7 +30,7 @@ hashtable_t *new_hashtable(int (*hash)(char *, int), int len)
 {
     hashtable_t *ht = malloc(sizeof(hashtable_t));
 
-    if (!ht) {
+    if (!ht || len <= 0) {
         return NULL;
     }
     ht->hash = hash;
