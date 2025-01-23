@@ -1,6 +1,6 @@
 # Secured
 
-![secured banner.png](bonus/assets/secured%20banner.png)
+![secured banner.png](bonus/assets/secured_banner.png)
 **Secured** is a C library for creating and managing hash tables, providing fast and secure storage for your data. It's designed for students and developers looking to explore hashing concepts while ensuring high performance and reliability.
 
 ---
