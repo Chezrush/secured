@@ -125,7 +125,7 @@ dev:		$(OBJ)
 		$(CC) $(OBJ) $(LIB_PATH) -o $(NAME_DEV) $(LDFLAGS)
 
 clean:
-		$(RM) $(OBJ)
+		$(RM) $(OBJ) $(OBJ_LIB)
 
 clean_test:
 		$(RM) $(UT_OBJ)
