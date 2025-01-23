@@ -14,10 +14,12 @@ int ht_insert(hashtable_t *ht, char *key, char *value)
 {
     int hash_key = ht->hash(key, ht->len);
     int index = ((hash_key % ht->len) + ht->len) % ht->len;
-    hashtable_entry_t **entry = &(ht->list[index]);
+    hashtable_entry_t **entry = NULL;
 
-    if (hash_key < 0)
-        hash_key *= -1;
+    if (key[0] == '\0' || value[0] == '\0' || hash_key < 0) {
+        return FAIL;
+    }
+    entry = &(ht->list[index]);
     if ((*entry)->num_item == 0) {
         create_list(&(*entry)->list, value, (*entry)->num_item, hash_key);
     } else {
