@@ -8,6 +8,8 @@
 #include "stddef.h"
 #include "hashtable.h"
 
+#include <stdio.h>
+
 static char *search_value(hashtable_entry_t *entry,
     hashtable_value_t *ht_value, int hash_key)
 {
@@ -22,12 +24,12 @@ static char *search_value(hashtable_entry_t *entry,
 
 char *ht_search(hashtable_t *ht, char *key)
 {
-    int hash_key;
-    int index;
+    int hash_key = 0;
+    int index = 0;
     hashtable_entry_t *entry = NULL;
     hashtable_value_t *ht_value = NULL;
 
-    if (!ht || key[0] == '\0') {
+    if (!ht || key == NULL || key[0] == '\0') {
         return NULL;
     }
     hash_key = ht->hash(key, ht->len);
