@@ -17,7 +17,7 @@ int hash(char *key, int len)
     SHA256_CTX_t ctx = {};
     int hash_key = 0;
 
-    if (key[0] == '\0' || len <= 0) {
+    if (key == NULL || key[0] == '\0' || len <= 0) {
         return -1;
     }
     sha256_init(&ctx);
