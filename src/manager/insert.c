@@ -5,13 +5,14 @@
 ** insert
 */
 
-#include <stdio.h>
+#include <stdlib.h>
 #include "my.h"
 #include "hashtable.h"
 #include "secured.h"
 
 static int replace_value(hashtable_entry_t *entry, char *value)
 {
+    free(entry->list->value);
     entry->list->value = my_strdup(value);
     return SUCCESS;
 }
