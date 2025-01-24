@@ -17,9 +17,11 @@ static void delete_entry(hashtable_entry_t *entry)
 
 void delete_hashtable(hashtable_t *ht)
 {
-    for (int i = 0; i < ht->len; ++i) {
-        delete_entry(ht->list[i]);
+    if (ht) {
+        for (int i = 0; i < ht->len; ++i) {
+            delete_entry(ht->list[i]);
+        }
+        free(ht->list);
+        free(ht);
     }
-    free(ht->list);
-    free(ht);
 }
