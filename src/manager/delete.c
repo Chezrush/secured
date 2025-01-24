@@ -16,7 +16,7 @@ int ht_delete(hashtable_t *ht, char *key)
     int index = ((hash_key % ht->len) + ht->len) % ht->len;
     hashtable_entry_t **entry = NULL;
 
-    if (key[0] == '\0' || hash_key < 0) {
+    if (key[0] == '\0' || hash_key < 0 || !ht_search(ht, key)) {
         return FAIL;
     }
     entry = &(ht->list[index]);
