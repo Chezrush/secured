@@ -49,8 +49,8 @@ static int insert_value(hashtable_entry_t **entry, char *value, int hash_key)
 
 int ht_insert(hashtable_t *ht, char *key, char *value)
 {
-    int hash_key;
-    int index;
+    int hash_key = 0;
+    int index = 0;
     hashtable_entry_t **entry = NULL;
     hashtable_entry_t *entry_s = NULL;
     int return_value;

@@ -29,8 +29,8 @@ static int delete_value(hashtable_entry_t **entry, int hash_key)
 
 int ht_delete(hashtable_t *ht, char *key)
 {
-    int hash_key;
-    int index;
+    int hash_key = 0;
+    int index = 0;
     hashtable_entry_t **entry = NULL;
 
     if (!ht || key[0] == '\0' || !ht_search(ht, key)) {
