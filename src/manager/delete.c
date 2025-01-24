@@ -10,17 +10,13 @@
 #include "hashtable.h"
 #include "secured.h"
 
-int ht_delete(hashtable_t *ht, char *key)
+static int delete_value(hashtable_entry_t **entry, int hash_key)
 {
-    int hash_key = ht->hash(key, ht->len);
-    int index = ((hash_key % ht->len) + ht->len) % ht->len;
-    hashtable_entry_t **entry = NULL;
+    int delete_return = delete_in_list(&(*entry)->list, hash_key);
 
-    if (key[0] == '\0' || hash_key < 0 || !ht_search(ht, key)) {
+    if (delete_return == FAIL) {
         return FAIL;
     }
-    entry = &(ht->list[index]);
-    delete_in_list(&(*entry)->list, hash_key);
     --(*entry)->num_item;
     if ((*entry)->num_item == 0) {
         (*entry)->list = malloc(sizeof(hashtable_value_t));
@@ -29,4 +25,22 @@ int ht_delete(hashtable_t *ht, char *key)
         return FAIL;
     }
     return SUCCESS;
+}
+
+int ht_delete(hashtable_t *ht, char *key)
+{
+    int hash_key;
+    int index;
+    hashtable_entry_t **entry = NULL;
+
+    if (!ht || key[0] == '\0' || !ht_search(ht, key)) {
+        return FAIL;
+    }
+    hash_key = ht->hash(key, ht->len);
+    if (hash_key < 0) {
+        return FAIL;
+    }
+    index = ((hash_key % ht->len) + ht->len) % ht->len;
+    entry = &(ht->list[index]);
+    return delete_value(entry, hash_key);
 }
