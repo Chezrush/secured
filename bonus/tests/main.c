@@ -16,11 +16,18 @@ int main(void)
     if (!ht) {
         return FAIL;
     }
+    printf("vision\n");
     ht_insert(ht, "Vision", "./Documents/Tournament/Modules/Vision");
+    printf("kratos 1\n");
     ht_insert(ht, "Kratos", "./Trash/Holidays_Pics/.secret_folder/kratos.ai");
+    printf("kratos 2\n");
     ht_insert(ht, "Kratos", "pipi");
+    printf("<3\n");
+    ht_dump(ht);
     ht_insert(ht, "<3", "+33 6 31 45 61 23 71");
+    printf("</3\n");
     ht_insert(ht, "</3", "+33 7 51 49 01 38 11");
+    printf("dump\n");
     ht_dump(ht);
     ht_delete(ht, "Vision");
     ht_delete(ht, "<3");
