@@ -9,8 +9,6 @@
 #include "secured.h"
 #include "my.h"
 
-#include <stdio.h>
-
 static void free_node(hashtable_value_t *list)
 {
     free(list->value);
