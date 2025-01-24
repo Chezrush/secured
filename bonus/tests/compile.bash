@@ -1,1 +1,2 @@
-gcc main.c -L../.. -lhashtable  -iquote../../include
+make re -C ../..
+gcc check_return_value.c -L../.. -lhashtable  -iquote../../include

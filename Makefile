@@ -145,11 +145,11 @@ re:		fclean all
 redev: 	fclean dev
 
 debug: 		CFLAGS 	+= -g3 -ggdb3
-debug: 		redev
+debug: 		all
 
 asan: 		CFLAGS 	+= -fsanitize=address -g3 -ggdb3
 asan:		LDFLAGS += -fsanitize=address
-asan: 		redev
+asan: 		all
 
 unit_tests: 	lib_build
 		$(CC) $(CPPFLAGS) -o $(NAME_TEST) $(SRC_TEST) $(SRC_TU) $(LIB_PATH) \
