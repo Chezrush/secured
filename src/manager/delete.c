@@ -33,7 +33,7 @@ int ht_delete(hashtable_t *ht, char *key)
     int index = 0;
     hashtable_entry_t **entry = NULL;
 
-    if (!ht || key[0] == '\0' || !ht_search(ht, key)) {
+    if (!ht || key == NULL || key[0] == '\0' || !ht_search(ht, key)) {
         return FAIL;
     }
     hash_key = ht->hash(key, ht->len);

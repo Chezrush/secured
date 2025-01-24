@@ -55,7 +55,8 @@ int ht_insert(hashtable_t *ht, char *key, char *value)
     hashtable_entry_t *entry_s = NULL;
     int return_value;
 
-    if (!ht || key[0] == '\0' || value[0] == '\0')
+    if (!ht || key == NULL || value == NULL
+        || key[0] == '\0' || value[0] == '\0')
         return FAIL;
     hash_key = ht->hash(key, ht->len);
     if (hash_key < 0)
